@@ -35,10 +35,13 @@ mongoose.connection.on("connected", () => {
 });
 
 // Creating Middlewares
+
+app.use(express.json()); //this allows us to send json data to express server endpoint
+
 app.use("/api/auth", authRoute);
-app.use("/api/users", authRoute);
-app.use("/api/hotels", authRoute);
-app.use("/api/rooms", authRoute);
+app.use("/api/users", usersRoute);
+app.use("/api/hotels", hotelsRoute);
+app.use("/api/rooms", roomsRoute);
 
 // To start the express server
 app.listen(8000, () => {
