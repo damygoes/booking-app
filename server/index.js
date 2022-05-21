@@ -43,6 +43,18 @@ app.use("/api/users", usersRoute);
 app.use("/api/hotels", hotelsRoute);
 app.use("/api/rooms", roomsRoute);
 
+// Handling Request Errors
+app.use((err, req, res, next) => {
+  const errorStatus = err.status || 500;
+  const errorMessage = err.message || "Something went wrong!";
+  return res.status(errorStatus).json({
+    success: false,
+    status: errorStatus,
+    message: errorMessage,
+    stack: err.stack,
+  });
+}); //Note that the error handling function always uses the format above - 4 parameters in the order above - err,req,res,next, otherwise it wouldn't work
+
 // To start the express server
 app.listen(8000, () => {
   connect();
